@@ -4,11 +4,17 @@
     <h2>Snacks</h2>
 </div>
 
+<div class="container">
+<div class="row">
+
 @foreach(var snack in Model)
 {
-    <div>
-        <h4>@snack.Name</h4>
-        <p><img src="@snack.ImageUrl" /></p>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+        <p><img src="@snack.ImageUrl" class="img-fluid"/></p>
         <h3>Price: @snack.Price.ToString("c")</h3>
+        <h4>@snack.Name</h4>        
+        <p>@snack.ShortDescription</p>        
     </div>
 }
+</div>
+</div>
