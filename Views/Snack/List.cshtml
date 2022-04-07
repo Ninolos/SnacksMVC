@@ -1,0 +1,14 @@
+﻿@model IEnumerable<SnackMVC.Models.Snack>
+
+<div>
+    <h2>All Snacks</h2>
+</div>
+
+@foreach(var snack in Model)
+{
+    <div>
+        <h4>@snack.Name</h4>
+        <p><img src="@snack.ImageUrl" /></p>
+        <h3>Price: @snack.Price.ToString("c")</h3>
+    </div>
+}
