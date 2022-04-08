@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SnackMVC.Models.Snack>
+﻿@model SnackListViewModel
 
 <div>
     <h2>Snacks</h2>
@@ -7,7 +7,7 @@
 <div class="container">
 <div class="row">
 
-@foreach(var snack in Model)
+@foreach(var snack in Model.Snacks)
 {
     <div class="col-sm-4 col-md-4 col-lg-4">
         <p><img src="@snack.ImageUrl" class="img-fluid"/></p>
