@@ -1,0 +1,8 @@
+﻿@model Snack
+
+<div class="col-sm-4 col-md-4 col-lg-4">
+        <p><img src="@Model.ImageUrl" class="img-fluid"/></p>
+        <h3>Price: @Model.Price.ToString("c")</h3>
+        <h4>@Model.Name</h4>        
+        <p>@Model.ShortDescription</p>        
+</div>
