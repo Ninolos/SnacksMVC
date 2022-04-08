@@ -12,5 +12,7 @@ namespace SnackMVC.Context
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Snack> Snacks { get; set; }
+
+        public DbSet<ShopCartItem> ShopCartItens { get; set; }
     }
 }
