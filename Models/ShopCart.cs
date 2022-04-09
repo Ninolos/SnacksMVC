@@ -1,4 +1,5 @@
-﻿using SnackMVC.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using SnackMVC.Context;
 
 namespace SnackMVC.Models
 {
@@ -12,7 +13,7 @@ namespace SnackMVC.Models
         }
 
         public string ShopCartId { get; set; }
-        public List<ShopCartItem> ShopCartItems { get; set; }
+        public List<ShopCartItem> ShopCartItens { get; set; }
 
         public static ShopCart GetCart(IServiceProvider services)
         {
@@ -74,6 +75,30 @@ namespace SnackMVC.Models
                 }
             }
             _context.SaveChanges();            
+        }
+
+        public List<ShopCartItem> GetShopCartItems()
+        {
+            return ShopCartItens ?? (ShopCartItens = _context.ShopCartItens
+                .Where(c => c.ShopCartId == ShopCartId)
+                .Include(s => s.Snack)
+                .ToList());
+        }
+
+        public void ClearCart()
+        {
+            var cartItens = _context.ShopCartItens.Where(cart => cart.ShopCartId == ShopCartId);
+
+            _context.ShopCartItens.RemoveRange(cartItens);
+            _context.SaveChanges();
+        }
+
+        public decimal GetCartTotalBuy()
+        {
+            var total = _context.ShopCartItens.Where(c => c.ShopCartId == ShopCartId)
+                                                .Select(c => c.Snack.Price * c.Amount).Sum();
+
+            return total;
         }
     }
 }
