@@ -34,5 +34,46 @@ namespace SnackMVC.Models
                 ShopCartId = cartId
             };
         }
+
+        public void AddToCart(Snack snack)
+        {
+            var shopCartItem = _context.ShopCartItens.SingleOrDefault(s => s.Snack.SnackId == snack.SnackId
+            && s.ShopCartId == ShopCartId);
+
+            if(shopCartItem == null)
+            {
+                shopCartItem = new ShopCartItem
+                {
+                    ShopCartId = ShopCartId,
+                    Snack = snack,
+                    Amount = 1
+                };
+                _context.ShopCartItens.Add(shopCartItem);
+            }
+            else
+            {
+                shopCartItem.Amount++;
+            }
+            _context.SaveChanges();
+        }
+
+        public void RemoveFromCart(Snack snack)
+        {
+            var shopCartItem = _context.ShopCartItens.SingleOrDefault(s => s.Snack.SnackId == snack.SnackId
+            && s.ShopCartId == ShopCartId);            
+
+            if(shopCartItem != null)
+            {
+                if(shopCartItem.Amount > 1)
+                {
+                    shopCartItem.Amount--;                    
+                }
+                else
+                {
+                    _context.ShopCartItens.Remove(shopCartItem);
+                }
+            }
+            _context.SaveChanges();            
+        }
     }
 }
