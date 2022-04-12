@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SnackMVC.Context;
+using SnackMVC.Models;
 using SnackMVC.Repositories;
 using SnackMVC.Repositories.Interfaces;
 
@@ -22,6 +23,7 @@ public class Startup
         services.AddTransient<ISnackRepository, SnackRepository>();
         services.AddTransient<ICategoryRepository, CategoryRepository>();
         services.AddSingleton<IHttpContextAccessor, IHttpContextAccessor>();
+        services.AddScoped(sc => ShopCart.GetCart(sc));
         services.AddMemoryCache();
         services.AddSession();
     }
