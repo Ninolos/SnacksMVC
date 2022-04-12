@@ -22,8 +22,8 @@ public class Startup
         services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         services.AddTransient<ISnackRepository, SnackRepository>();
         services.AddTransient<ICategoryRepository, CategoryRepository>();
-        services.AddSingleton<IHttpContextAccessor, IHttpContextAccessor>();
-        services.AddScoped(sc => ShopCart.GetCart(sc));
+        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        services.AddScoped(sp => ShopCart.GetCart(sp));
         services.AddMemoryCache();
         services.AddSession();
     }
