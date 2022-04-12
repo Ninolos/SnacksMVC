@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SnackMVC.Models;
 using SnackMVC.Repositories.Interfaces;
 using SnackMVC.ViewModels;
 
@@ -13,13 +14,39 @@ namespace SnackMVC.Controllers
             _snackrepository = snackrepository;
         }
 
-        public IActionResult List()
+        public IActionResult List(string category)
         {
-            //var snacks = _snackrepository.Snacks;
-            //return View(snacks);
-            var snackListViewModel = new SnackListViewModel();
-            snackListViewModel.Snacks = _snackrepository.Snacks;
-            snackListViewModel.CurrentCategory = "Category";
+            IEnumerable<Snack> snacks;
+            string currentCategory = string.Empty;
+
+            if (string.IsNullOrEmpty(category))
+            {
+                snacks = _snackrepository.Snacks.OrderBy(l => l.SnackId);
+                currentCategory = "All Snacks"
+            }
+            else
+            {
+                if (string.Equals("Normal", category, StringComparison.OrdinalIgnoreCase))
+                {
+                    snacks = _snackrepository.Snacks
+                                  .Where(l => l.Category.CategoryName.Equals("Normal"))
+                                  .OrderBy(l => l.Name);
+                }
+                else
+                {
+                    snacks = _snackrepository.Snacks
+                                  .Where(l => l.Category.CategoryName.Equals("Natural"))
+                                  .OrderBy(l => l.Name);
+                }
+
+                currentCategory = category;
+            }
+
+            var snackListViewModel = new SnackListViewModel
+            {
+                Snacks = snacks,
+                CurrentCategory = currentCategory
+            };
 
             return View(snackListViewModel);
         }
