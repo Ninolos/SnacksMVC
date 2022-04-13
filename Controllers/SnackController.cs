@@ -26,18 +26,10 @@ namespace SnackMVC.Controllers
             }
             else
             {
-                if (string.Equals("Normal", category, StringComparison.OrdinalIgnoreCase))
-                {
                     snacks = _snackrepository.Snacks
-                                  .Where(l => l.Category.CategoryName.Equals("Normal"))
-                                  .OrderBy(l => l.Name);
-                }
-                else
-                {
-                    snacks = _snackrepository.Snacks
-                                  .Where(l => l.Category.CategoryName.Equals("Natural"))
-                                  .OrderBy(l => l.Name);
-                }
+                    .Where(s => s.Category.CategoryName
+                    .Equals(category))
+                    .OrderBy(c => c.Name);
 
                 currentCategory = category;
             }
