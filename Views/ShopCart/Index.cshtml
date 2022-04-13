@@ -19,20 +19,20 @@
         </thead>
         <tbody>
             @foreach(var item in Model.ShopCart.ShopCartItens)
-                {
-                    <tr>
+            {
+               <tr>
                         <td class="text-center">@item.Amount</td>
                         <td class="text-left">@item.Snack.Name</td>
                         <td class="text-rigth">@item.Snack.Price.ToString("c")</td>
                         <td class="text-rigth">@((item.Amount * item.Snack.Price).ToString("c"))</td>
                         
-                        <td>
-                        <a asp-controller="ShopCart" asp-action="RemoveItemFromCart"
-                        asp-route-snackId="@item.Snack.SnackId"><img src="~/images/remove.ico"></a>
-                        </td>
-
-                    </tr>
-                }
+                        <td class="text-center">
+                         <a asp-controller="ShopCart" asp-action="RemoveItemFromCart" 
+                          asp-route-snackId="@item.Snack.SnackId"><img src="~/images/remove.ico" width="20px" height="20px" />
+                         </a>
+                      </td>
+                  </tr>       
+            }
         </tbody>
         <tfoot>
             <tr>
@@ -46,7 +46,7 @@
 
     <div class="text-right">
         <div class="btn-group">
-         <a class="btn btn-success" asp-controller="Order" asp-action="Checkout">Close Pedido</a>
+         <a class="btn btn-success" asp-controller="Order" asp-action="Checkout">Close Order</a>
             &nbsp;&nbsp;&nbsp;
          <a class="btn btn-primary" asp-controller="Snack" asp-action="List">Keep Buying</a>
         </div>
@@ -54,3 +54,4 @@
 
 </div>
 </div>
+

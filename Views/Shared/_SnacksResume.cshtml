@@ -11,12 +11,14 @@
 
     <p>@Model.ShortDescription</p>
       <div>
-        <p class="button">
+        <p class="btn btn-group align-content-lg-end" >
+            <a asp-controller="Snack" asp-action="List" 
+               class="btn btn-outline-info">See all snacks</a>
             <a class="btn btn-primary" id="cartButton" asp-controller="ShopCart" 
-            asp-action="AddItemtoCart" asp-route-LancheId="@Model.SnackId">
-            Add to Cart
-        </a>
-        </p>
+            asp-action="AddItemtoCart" asp-route-snackId="@Model.SnackId"> 
+            Add @Model.Name to cart
+            </a>
+         </p>
     </div>
 
 </div>
