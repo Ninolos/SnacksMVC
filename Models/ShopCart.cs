@@ -38,8 +38,9 @@ namespace SnackMVC.Models
 
         public void AddToCart(Snack snack)
         {
-            var shopCartItem = _context.ShopCartItens.SingleOrDefault(s => s.Snack.SnackId == snack.SnackId
-            && s.ShopCartId == ShopCartId);
+            var shopCartItem = _context.ShopCartItens.SingleOrDefault(
+                s => s.Snack.SnackId == snack.SnackId && 
+                s.ShopCartId == ShopCartId);
 
             if(shopCartItem == null)
             {

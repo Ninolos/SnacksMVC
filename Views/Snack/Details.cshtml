@@ -1,0 +1,22 @@
+﻿@model Snack
+<div class="container">
+<div class="row">
+<div class="card">
+     <div class="text-center">
+         <img src="@Model.ImageUrl" class="img-fluid" alt="">
+     </div>
+     <div class="card-block">
+        <h2 class="card-title">@Model.Name</h2>
+        <p class="card-text"><h5>@Model.LongDescription</h5></p>
+         <p class="btn btn-group align-content-lg-end" >
+            <a asp-controller="Snack" asp-action="List" 
+               class="btn btn-outline-info">See all snacks</a>
+            <a class="btn btn-primary" id="cartButton" asp-controller="ShopCart" 
+            asp-action="AddItemtoCart" asp-route-snackId="@Model.SnackId"> 
+            Add @Model.Name to cart
+            </a>
+         </p>
+     </div>
+</div>
+</div>
+</div>
