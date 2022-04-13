@@ -22,7 +22,7 @@ namespace SnackMVC.Controllers
             if (string.IsNullOrEmpty(category))
             {
                 snacks = _snackrepository.Snacks.OrderBy(l => l.SnackId);
-                currentCategory = "All Snacks"
+                currentCategory = "All Snacks";
             }
             else
             {
