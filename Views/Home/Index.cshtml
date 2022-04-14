@@ -1,13 +1,57 @@
-﻿@model HomeViewModel
+﻿<div class="row text-center">
+    <h2>Snacks</h2>
+</div>
 
-<partial name="_Carousel" />
+<div class="container">
+    <section id="about">
+      <div class="row justify-content-center">
+            <div class="col-xs-12 col-sm-6 col-md-3 text-center">
+                <img src="~/images/leiaute/icons8-love-50.png" />
+                <h3>Make with love</h3>
+                <p class="text-muted">Make your snacks with love.</p>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 text-center">
+                <img src="~/images/leiaute/icons8-get-dressed-50.png" />
+                <h3>Ready for delivery</h3>
+                <p class="text-muted">Delivery always ready</p>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 text-center">
+             <img src="~/images/leiaute/icons8-desconto-48.png" />
+                <h3>Better Prices </h3>
+                <p class="text-muted">Better promotions </p>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 text-center">
+               <img src="~/images/leiaute/icons8-comida-natural-50.png" />
+                <h3>Natural Snacks</h3>
+                <p class="text-muted">...fit and natural...</p>
+            </div>
+        </div>
+    </section>
 
-<h2>Favorite Snacks</h2>
-<h4>Are you hungry? :) </h4>
+    <section id="portfolio">
+        @await Html.PartialAsync("_IndexPartial")
+    </section>
 
-<div class="row">
-    @foreach(var snack in Model.FavoriteSnack)
-    {
-        <partial name="_SnacksResume" for="@snack"/>
-    }
+     <br />
+    
+    <section id="contact">
+         <div class="row">
+             <div class="col-10 col-md-5 col-lg-5 offset-1" style="color: black">
+                 <h4> &copy; 2022 - SnacksMVC</h4>
+                 <p class="text-justify">
+                     Here you find the bests snacks in the world, forget BK, Mc and Madero
+                 </p>
+             </div>
+
+             <div class="col-10 col-md-5 col-lg-5 offset-1" style="color: black">
+                 <h4>Any question ?</h4>
+                 <ul class="list-unstyled">
+                     <li class="py-1"> St. Erwin Mankzke 12345</li>
+                     <li class="py-1"> +55-(47)3021-1234</li>
+                     <li class="py-1"> <a href="snacks@hotmail.com" style="color: blue">snacks@hotmail.com</a></li>
+                 </ul>
+             </div>
+         </div>
+    </section>
+
 </div>
