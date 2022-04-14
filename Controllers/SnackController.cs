@@ -48,5 +48,31 @@ namespace SnackMVC.Controllers
             var snack = _snackrepository.Snacks.FirstOrDefault(s => s.SnackId == snackId);
             return View(snack);
         }
+
+        public ViewResult Search (string searchString)
+        {
+            IEnumerable<Snack> snacks;
+            string currentCategory = string.Empty;
+
+            if (string.IsNullOrEmpty(searchString))
+            {
+                snacks = _snackrepository.Snacks.OrderBy(s => s.SnackId);
+                currentCategory = "All snacks";
+            }
+            else
+            {
+                snacks = _snackrepository.Snacks.Where(s => s.Name.ToLower().Contains(searchString.ToLower()));
+
+                if (snacks.Any())
+                    currentCategory = "Snacks";
+                else
+                    currentCategory = "Snacks not found";
+            }
+            return View("~/Views/Snack/List.cshtml", new SnackListViewModel
+            {
+                Snacks = snacks,
+                CurrentCategory = currentCategory
+            });
+        }
     }
 }
