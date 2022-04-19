@@ -4,12 +4,12 @@ using SnackMVC.ViewModels;
 
 namespace SnackMVC.Controllers
 {
-    public class AcoountController : Controller
+    public class AccountController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
 
-        public AcoountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -51,5 +51,33 @@ namespace SnackMVC.Controllers
             ModelState.AddModelError("", "Fail to try the Login");
             return View(loginVM);
         }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken] //anti CSRS attacks
+        public async Task<IActionResult> Register(LoginViewModel registerVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new IdentityUser() { UserName = registerVM.UserName };
+                var result = await _userManager.CreateAsync(user, registerVM.Password);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    this.ModelState.AddModelError("Register", "Login failed");
+                }
+            }
+            return View(registerVM);
+        }
+        
     }
 }
