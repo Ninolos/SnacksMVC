@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SnackMVC.Models;
 using SnackMVC.Repositories.Interfaces;
 using SnackMVC.ViewModels;
@@ -30,6 +31,7 @@ namespace SnackMVC.Controllers
             return View(shopCartVM);
         }
 
+        [Authorize]
         public IActionResult AddItemtoCart(int snackId)
         {
             var selectedSnack = _snackRepository.Snacks.FirstOrDefault(s => s.SnackId == snackId);
@@ -42,6 +44,7 @@ namespace SnackMVC.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public IActionResult RemoveItemFromCart(int snackId)
         {
             var selectedSnack = _snackRepository.Snacks.FirstOrDefault(s => s.SnackId == snackId);

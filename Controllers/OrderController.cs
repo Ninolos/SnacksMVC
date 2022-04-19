@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SnackMVC.Models;
 using SnackMVC.Repositories.Interfaces;
 
@@ -15,12 +16,14 @@ namespace SnackMVC.Controllers
             _shopCart = shopCart;
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult Checkout()
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Checkout(Order order)
         {
