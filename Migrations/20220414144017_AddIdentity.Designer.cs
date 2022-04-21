@@ -12,7 +12,7 @@ using SnackMVC.Context;
 namespace SnackMVC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220414144208_AddIdentity")]
+    [Migration("20220414144017_AddIdentity")]
     partial class AddIdentity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
