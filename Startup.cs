@@ -33,7 +33,7 @@ public class Startup
             options.AddPolicy("Admin",
                 politic =>
                 {
-                    politic.RequireRole("Admin")
+                    politic.RequireRole("Admin");
                 });
         });
 
