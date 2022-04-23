@@ -4,6 +4,7 @@ using SnackMVC.Context;
 using SnackMVC.Models;
 using SnackMVC.Repositories;
 using SnackMVC.Repositories.Interfaces;
+using SnackMVC.Services;
 
 namespace SnackMVC;
 
@@ -26,6 +27,16 @@ public class Startup
 
         services.AddTransient<ISnackRepository, SnackRepository>();
         services.AddTransient<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
+        services.AddAuthorization(options =>
+        {
+            options.AddPolicy("Admin",
+                politic =>
+                {
+                    politic.RequireRole("Admin")
+                });
+        });
+
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         services.AddTransient<IOrderRepository, OrderRepository>();
         services.AddScoped(sp => ShopCart.GetCart(sp));
@@ -34,7 +45,7 @@ public class Startup
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ISeedUserRoleInitial seedUserRoleInitial)
     {
         if (env.IsDevelopment())
         {
@@ -50,10 +61,14 @@ public class Startup
         app.UseStaticFiles();
 
         app.UseRouting();
+        seedUserRoleInitial.SeedRoles();
+        seedUserRoleInitial.SeedUsers();
 
         app.UseSession();
 
+        //create profile
         app.UseAuthentication();
+        //create users and attibute to the profile
         app.UseAuthorization();
 
         app.UseEndpoints(endpoints =>
