@@ -7,23 +7,23 @@ using Microsoft.EntityFrameworkCore;
 namespace LanchesMac.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles="Admin")]
-    public class AdminCategoriesController : Controller
+    [Authorize(Roles = "Admin")]
+    public class AdminOrdersController : Controller
     {
         private readonly AppDbContext _context;
 
-        public AdminCategoriesController(AppDbContext context)
+        public AdminOrdersController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: Admin/AdminCategorias
+        // GET: Admin/AdminPedidos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categories.ToListAsync());
+            return View(await _context.Orders.ToListAsync());
         }
 
-        // GET: Admin/AdminCategorias/Details/5
+        // GET: Admin/AdminPedidos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -31,39 +31,39 @@ namespace LanchesMac.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var categoria = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (categoria == null)
+            var pedido = await _context.Orders
+                .FirstOrDefaultAsync(m => m.OrderId == id);
+            if (pedido == null)
             {
                 return NotFound();
             }
 
-            return View(categoria);
+            return View(pedido);
         }
 
-        // GET: Admin/AdminCategorias/Create
+        // GET: Admin/AdminPedidos/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/AdminCategorias/Create
+        // POST: Admin/AdminPedidos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CategoryId,CategoryName,Description")] Category categoria)
+        public async Task<IActionResult> Create([Bind("OrderId,Name,LastName,Adress1,Adress2,ZIP,State,City,Telephone,Email,OrderSent,OrderDelivered")] Order pedido)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(categoria);
+                _context.Add(pedido);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(categoria);
+            return View(pedido);
         }
 
-        // GET: Admin/AdminCategorias/Edit/5
+        // GET: Admin/AdminPedidos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -71,22 +71,22 @@ namespace LanchesMac.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var categoria = await _context.Categories.FindAsync(id);
-            if (categoria == null)
+            var pedido = await _context.Orders.FindAsync(id);
+            if (pedido == null)
             {
                 return NotFound();
             }
-            return View(categoria);
+            return View(pedido);
         }
 
-        // POST: Admin/AdminCategorias/Edit/5
+        // POST: Admin/AdminPedidos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,CategoryName,Description")] Category categoria)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderId,Name,LastName,Adress1,Adress2,ZIP,State,City,Telephone,Email,OrderSent,OrderDelivered")] Order pedido)
         {
-            if (id != categoria.CategoryId)
+            if (id != pedido.OrderId)
             {
                 return NotFound();
             }
@@ -95,12 +95,12 @@ namespace LanchesMac.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(categoria);
+                    _context.Update(pedido);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoriaExists(categoria.CategoryId))
+                    if (!PedidoExists(pedido.OrderId))
                     {
                         return NotFound();
                     }
@@ -111,10 +111,10 @@ namespace LanchesMac.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(categoria);
+            return View(pedido);
         }
 
-        // GET: Admin/AdminCategorias/Delete/5
+        // GET: Admin/AdminPedidos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -122,30 +122,30 @@ namespace LanchesMac.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var categoria = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (categoria == null)
+            var pedido = await _context.Orders
+                .FirstOrDefaultAsync(m => m.OrderId == id);
+            if (pedido == null)
             {
                 return NotFound();
             }
 
-            return View(categoria);
+            return View(pedido);
         }
 
-        // POST: Admin/AdminCategorias/Delete/5
+        // POST: Admin/AdminPedidos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var categoria = await _context.Categories.FindAsync(id);
-            _context.Categories.Remove(categoria);
+            var pedido = await _context.Orders.FindAsync(id);
+            _context.Orders.Remove(pedido);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoriaExists(int id)
+        private bool PedidoExists(int id)
         {
-            return _context.Categories.Any(e => e.CategoryId == id);
+            return _context.Orders.Any(e => e.OrderId == id);
         }
     }
 }

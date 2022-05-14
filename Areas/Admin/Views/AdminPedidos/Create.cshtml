@@ -1,0 +1,80 @@
+﻿@model SnackMVC.Models.Order
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Order</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adress1" class="control-label"></label>
+                <input asp-for="Adress1" class="form-control" />
+                <span asp-validation-for="Adress1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Adress2" class="control-label"></label>
+                <input asp-for="Adress2" class="form-control" />
+                <span asp-validation-for="Adress2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ZIP" class="control-label"></label>
+                <input asp-for="ZIP" class="form-control" />
+                <span asp-validation-for="ZIP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="State" class="control-label"></label>
+                <input asp-for="State" class="form-control" />
+                <span asp-validation-for="State" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telephone" class="control-label"></label>
+                <input asp-for="Telephone" class="form-control" />
+                <span asp-validation-for="Telephone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderSent" class="control-label"></label>
+                <input asp-for="OrderSent" class="form-control" />
+                <span asp-validation-for="OrderSent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderDelivered" class="control-label"></label>
+                <input asp-for="OrderDelivered" class="form-control" />
+                <span asp-validation-for="OrderDelivered" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
