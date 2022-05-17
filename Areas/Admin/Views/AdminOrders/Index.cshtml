@@ -1,13 +1,26 @@
-﻿@model IEnumerable<SnackMVC.Models.Order>
+﻿@model ReflectionIT.Mvc.Paging.PagingList<SnackMVC.Models.Order>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h3>Index</h3>
+
+<form method="get" class="form-inline">
+    <input name="filter" class="form-control" placeholder="filter"
+            value="@Model.RouteValue["Filter"]"/>
+    <button type="submit" class="btn btn-info">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+    </button>
+</form>
+
+Total Orders : @Model.TotalRecordCount
+<div>
+    <vc:pager paging-list="@Model"></vc:pager>
+</div>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create New Order</a>
 </p>
 <table class="table">
     <thead>

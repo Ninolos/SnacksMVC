@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ReflectionIT.Mvc.Paging;
 using SnackMVC.Context;
 using SnackMVC.Models;
 using SnackMVC.Repositories;
@@ -40,6 +41,15 @@ public class Startup
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         services.AddTransient<IOrderRepository, OrderRepository>();
         services.AddScoped(sp => ShopCart.GetCart(sp));
+
+        services.AddControllersWithViews();
+
+        services.AddPaging(options =>
+        {
+            options.ViewName = "Bootstrap4";
+            options.PageParameterName = "pageindex";
+        });
+
         services.AddMemoryCache();
         services.AddSession();
     }
