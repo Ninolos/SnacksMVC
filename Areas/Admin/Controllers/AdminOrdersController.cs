@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ReflectionIT.Mvc.Paging;
+using SnackMVC.ViewModels;
 
 namespace LanchesMac.Areas.Admin.Controllers
 {
@@ -162,6 +163,28 @@ namespace LanchesMac.Areas.Admin.Controllers
         private bool PedidoExists(int id)
         {
             return _context.Orders.Any(e => e.OrderId == id);
+        }
+
+        public IActionResult SnackOrder(int? id)
+        {
+            var order = _context.Orders
+                                .Include(or => or.OrderItens)
+                                .ThenInclude(s => s.Snack)
+                                .FirstOrDefault(o => o.OrderId == id);
+
+            if (order == null)
+            {
+                Response.StatusCode = 404;
+                return View("OrderNotFound", id.Value);
+            }
+
+            OrderSnackViewModel orderSnack = new OrderSnackViewModel()
+            {
+                Order = order,
+                OrderDetails = order.OrderItens
+            };
+
+            return View(orderSnack);
         }
     }
 }
