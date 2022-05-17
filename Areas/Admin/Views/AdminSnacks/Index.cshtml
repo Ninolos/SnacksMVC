@@ -1,10 +1,23 @@
-﻿@model IEnumerable<SnackMVC.Models.Snack>
+﻿@model ReflectionIT.Mvc.Paging.PagingList<SnackMVC.Models.Snack>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Snack</h1>
+
+
+<form method="get" class="form-inline">
+    <input name="filter" class="form-control" placeholder="filter"
+            value="@Model.RouteValue["Filter"]"/>
+
+    <button type="submit" class="btn btn-info"> Search </button>
+</form>
+
+Total Snacks : @Model.TotalRecordCount
+<div>
+    <vc:pager paging-list="@Model"></vc:pager>
+</div>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -18,18 +31,11 @@
             <th>
                 @Html.DisplayNameFor(model => model.ShortDescription)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LongDescription)
-            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageThumbUrl)
-            </th>
+          
             <th>
                 @Html.DisplayNameFor(model => model.FavoriteSnack)
             </th>
@@ -51,18 +57,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ShortDescription)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LongDescription)
-            </td>
+           
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageThumbUrl)
-            </td>
+         
             <td>
                 @Html.DisplayFor(modelItem => item.FavoriteSnack)
             </td>
